@@ -7,7 +7,7 @@ import CoinDetailedScreen from "./src/screen/CoinDetailedScreen";
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
-      <CoinDetailedScreen />
+      <HomeScreen />
       <StatusBar style="light" />
     </SafeAreaView>
   );
