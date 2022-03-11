@@ -1,11 +1,16 @@
 import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { AntDesign } from "@expo/vector-icons";
 
 const CoinItem = ({ marketCoin }) => {
   //   console.log(marketCoin);
+
+  const navigation = useNavigation();
+
   const {
+    id,
     name,
     current_price,
     market_cap_rank,
@@ -15,7 +20,8 @@ const CoinItem = ({ marketCoin }) => {
     image,
   } = marketCoin;
 
-  const percentageColor = price_change_percentage_24h < 0 ? "#ea3943" : "#16c784";
+  const percentageColor =
+    price_change_percentage_24h < 0 ? "#ea3943" : "#16c784";
 
   const normalizeMarketCap = (marketCap) => {
     if (marketCap > 1_000_000_000_000) {
@@ -31,7 +37,10 @@ const CoinItem = ({ marketCoin }) => {
   };
 
   return (
-    <View style={styles.coinContainer}>
+    <TouchableOpacity
+      style={styles.coinContainer}
+      onPress={() => navigation.navigate("Detail", {coinId: id})}
+    >
       <Image
         source={{
           uri: image,
@@ -56,7 +65,7 @@ const CoinItem = ({ marketCoin }) => {
             color={percentageColor}
             style={{ alignSelf: "center", marginRight: 5 }}
           />
-          <Text style={{color: percentageColor}}>
+          <Text style={{ color: percentageColor }}>
             {price_change_percentage_24h.toFixed(2)}%
           </Text>
         </View>
@@ -65,7 +74,7 @@ const CoinItem = ({ marketCoin }) => {
         <Text style={styles.title}>{current_price.toFixed(2)}</Text>
         <Text style={styles.text}>MCap {normalizeMarketCap(market_cap)}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -85,6 +94,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth, // the smallest thiness of bottomline
     borderBottomColor: "#282828",
     padding: 15,
+    backgroundColor: "#121212",
   },
   rank: {
     fontWeight: "bold",

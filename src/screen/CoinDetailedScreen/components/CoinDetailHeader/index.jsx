@@ -1,14 +1,17 @@
 import React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { Ionicons, EvilIcons } from "@expo/vector-icons";
 
 const CoinDetailHeader = (props) => {
   const { small, symbol, market_cap_rank } = props;
 
+  const navigation = useNavigation();
+
   return (
     <View style={styles.headerContainer}>
-      <Ionicons name="chevron-back-sharp" size={30} color="white" />
+      <Ionicons name="chevron-back-sharp" size={30} color="white" onPress={() => navigation.goBack()} />
       <View style={styles.tickerContainer}>
         <Image source={{ uri: small }} style={{ width: 25, height: 25 }} />
         <Text style={styles.tickerTitle}>{symbol.toUpperCase()}</Text>
