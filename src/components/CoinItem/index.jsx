@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#282828",
     padding: 15,
     backgroundColor: "#121212",
+    flex: 1
   },
   rank: {
     fontWeight: "bold",
