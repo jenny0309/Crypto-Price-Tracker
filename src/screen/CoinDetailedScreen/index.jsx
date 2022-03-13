@@ -112,6 +112,7 @@ const CoinDetailedScreen = () => {
         }}
       >
         <CoinDetailHeader
+          coinId={coin?.id}
           small={coin?.image?.small}
           symbol={coin?.symbol}
           market_cap_rank={coin?.market_data?.market_cap_rank}
