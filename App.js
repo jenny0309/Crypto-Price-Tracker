@@ -4,17 +4,21 @@ import { NavigationContainer } from "@react-navigation/native";
 import Navigation from "./src/navigation";
 // Context API
 import WatchListProvider from "./src/contexts/WatchListContext";
+// Recoil
+import { RecoilRoot } from "recoil";
 
 export default function App() {
   return (
     <NavigationContainer theme={{ colors: { background: "#121212" } }}>
-      <WatchListProvider>
-        {/* children */}
-        <SafeAreaView style={styles.container}>
-          <Navigation />
-          <StatusBar style="light" />
-        </SafeAreaView>
-      </WatchListProvider>
+      <RecoilRoot>
+        <WatchListProvider>
+          {/* children */}
+          <SafeAreaView style={styles.container}>
+            <Navigation />
+            <StatusBar style="light" />
+          </SafeAreaView>
+        </WatchListProvider>
+      </RecoilRoot>
     </NavigationContainer>
   );
 }

@@ -21,16 +21,16 @@ const CoinItem = ({ marketCoin }) => {
   } = marketCoin;
 
   const percentageColor =
-    price_change_percentage_24h < 0 ? "#ea3943" : "#16c784";
+    price_change_percentage_24h < 0 ? "#ea3943" : "#16c784" || "white";
 
   const normalizeMarketCap = (marketCap) => {
-    if (marketCap > 1_000_000_000_000) {
+    if (marketCap > 1e12) {
       return `${Math.floor(marketCap / 1_000_000_000_000)}T`;
-    } else if (marketCap > 1_000_000_000) {
+    } else if (marketCap > 1e9) {
       return `${Math.floor(marketCap / 1_000_000_000)}B`;
-    } else if (marketCap > 1_000_000) {
+    } else if (marketCap > 1e6) {
       return `${Math.floor(marketCap / 1_000_000)}M`;
-    } else if (marketCap > 1_000) {
+    } else if (marketCap > 1e3) {
       return `${Math.floor(marketCap / 1_000)}K`;
     }
     return marketCap;
@@ -66,7 +66,7 @@ const CoinItem = ({ marketCoin }) => {
             style={{ alignSelf: "center", marginRight: 5 }}
           />
           <Text style={{ color: percentageColor }}>
-            {price_change_percentage_24h.toFixed(2)}%
+            {price_change_percentage_24h?.toFixed(2)}%
           </Text>
         </View>
       </View>
