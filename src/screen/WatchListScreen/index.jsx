@@ -19,7 +19,7 @@ const WatchListScreen = () => {
   const [loading, setLoading] = useState(false);
 
   // make url string like bitcoin%2C%20ethereum%2C%20solana
-  const transformCoinIds = () => watchListCoinIds.join('%2C%20')
+  const transformCoinIds = () => watchListCoinIds.join("%2C%20");
   // console.log(transformCoinIds());
 
   const fetchWatchListedCoins = async () => {
@@ -28,14 +28,19 @@ const WatchListScreen = () => {
     }
 
     setLoading(true);
-    
-    const watchListedCoinsData = await getWatchListedCoins(1, transformCoinIds());
+
+    const watchListedCoinsData = await getWatchListedCoins(
+      1,
+      transformCoinIds()
+    );
     setCoins((existingCoins) => [...existingCoins, ...watchListedCoinsData]);
     setLoading(false);
   };
 
   useEffect(() => {
-    fetchWatchListedCoins();
+    if (watchListCoinIds.length > 0) {
+      fetchWatchListedCoins();
+    }
   }, []);
 
   const refetchWatchListedCoins = async () => {
@@ -44,15 +49,18 @@ const WatchListScreen = () => {
     }
 
     setLoading(true);
-    
-    const watchListedCoinsData = await getWatchListedCoins(1, transformCoinIds());
+
+    const watchListedCoinsData = await getWatchListedCoins(
+      1,
+      transformCoinIds()
+    );
     setCoins(watchListedCoinsData);
     setLoading(false);
   };
 
   useEffect(() => {
-    refetchWatchListedCoins()
-  }, [watchListCoinIds])
+    refetchWatchListedCoins();
+  }, [watchListCoinIds]);
 
   return (
     <FlatList

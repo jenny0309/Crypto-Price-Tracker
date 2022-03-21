@@ -21,15 +21,15 @@ const HomeScreen = () => {
 
     setLoading(true);
 
-    const coinsData = await getMarketData(pageNumber)
+    const coinsData = await getMarketData(pageNumber);
     // prevent it from overwriting when fetching next page
     // concatenate existing data and new ones!
-    setCoins((existingCoins) => ([...existingCoins, ...coinsData]));
+    setCoins((existingCoins) => [...existingCoins, ...coinsData]);
     setLoading(false);
-  }
+  };
 
   useEffect(() => {
-    fetchCoins()
+    fetchCoins();
   }, []);
 
   // refresh data
@@ -52,19 +52,33 @@ const HomeScreen = () => {
   // }
 
   return (
-    <FlatList
-      data={coins}
-      renderItem={({ item }) => <CoinItem marketCoin={item} />}
-      keyExtractor={(props, index) => props.id + "-" + index}
-      onEndReached={() => fetchCoins((coins.length / 50) + 1)}
-      refreshControl={
-        <RefreshControl
-          refreshing={loading}
-          tintColor="white"
-          onRefresh={refetchCoins}
-        />
-      }
-    />
+    <View>
+      <Text
+        style={{
+          color: "white",
+          fontSize: 25,
+          letterSpacing: 1,
+          paddingHorizontal: 20,
+          paddingBottom: 5,
+          fontFamily: "Inter_900Black",
+        }}
+      >
+        Cryptoassets
+      </Text>
+      <FlatList
+        data={coins}
+        renderItem={({ item }) => <CoinItem marketCoin={item} />}
+        keyExtractor={(props, index) => props.id + "-" + index}
+        onEndReached={() => fetchCoins(coins.length / 50 + 1)}
+        refreshControl={
+          <RefreshControl
+            refreshing={loading}
+            tintColor="white"
+            onRefresh={refetchCoins}
+          />
+        }
+      />
+    </View>
   );
 };
 

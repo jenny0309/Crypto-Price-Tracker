@@ -20,6 +20,7 @@ import {
 } from "../../services/requests";
 
 import CoinDetailHeader from "./components/CoinDetailHeader";
+import FilterComponent from "./components/FilterComponent";
 
 import { AntDesign } from "@expo/vector-icons";
 
@@ -32,7 +33,9 @@ const CoinDetailedScreen = () => {
   // console.log(coinId);
 
   const [coinValue, setCoinValue] = useState(1);
-  const [usdValue, setUsdValue] = useState(coin?.market_data?.current_price.usd);
+  const [usdValue, setUsdValue] = useState(
+    coin?.market_data?.current_price.usd
+  );
   const [coin, setCoin] = useState(null);
   const [coinMarketData, setCoinMarketData] = useState(null);
   // fetching data asynchronously takes bunch of time => set loading!
@@ -75,7 +78,9 @@ const CoinDetailedScreen = () => {
     setCoinValue(value);
 
     const floatValue = parseFloat(value) || 0;
-    setUsdValue((floatValue * coin?.market_price?.current_price.usd).toString());
+    setUsdValue(
+      (floatValue * coin?.market_price?.current_price.usd).toString()
+    );
   };
 
   const changeUsdValue = (value) => {
@@ -107,7 +112,10 @@ const CoinDetailedScreen = () => {
     <View style={styles.coinDetailed}>
       <ChartPathProvider
         data={{
-          points: coinMarketData?.prices.map((price) => ({ x: price[0], y: price[1] })),
+          points: coinMarketData?.prices.map((price) => ({
+            x: price[0],
+            y: price[1],
+          })),
           smoothingStrategy: "bezier",
         }}
       >
@@ -145,6 +153,14 @@ const CoinDetailedScreen = () => {
               {coin?.market_data?.price_change_percentage_24h.toFixed(2)}%
             </Text>
           </View>
+        </View>
+
+        <View style={styles.filtersContainer}>
+          <FilterComponent filterDay="1" filterText="24h" />
+          <FilterComponent filterDay="7" filterText="7d" />
+          <FilterComponent filterDay="30" filterText="30d" />
+          <FilterComponent filterDay="365" filterText="1y" />
+          <FilterComponent filterDay="max" filterText="All" />
         </View>
 
         <View>
@@ -213,6 +229,14 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 17,
     fontWeight: "500",
+  },
+  filtersContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    backgroundColor: "#2B2B2B",
+    paddingVertical: 5,
+    borderRadius: 5,
+    marginVertical: 10,
   },
   input: {
     flex: 1,

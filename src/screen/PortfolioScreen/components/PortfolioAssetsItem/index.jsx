@@ -22,11 +22,14 @@ const PortfolioAssetsItem = ({ assetItem }) => {
         }}
         style={{ height: 30, width: 30, marginRight: 10 }}
       />
-      <View>
-        <Text style={styles.title}>{name}</Text>
+      <View style={{ flex: 1 }}>
+        <Text numberOfLines={1} style={styles.title}>
+          {name}
+        </Text>
         <Text style={styles.ticker}>{ticker}</Text>
       </View>
-      <View style={{ marginLeft: "auto" }}>
+
+      <View style={{ flex: 0.75 }}>
         <Text style={styles.title}>${currentPrice}</Text>
         <View style={{ flexDirection: "row" }}>
           <AntDesign
@@ -41,10 +44,11 @@ const PortfolioAssetsItem = ({ assetItem }) => {
               fontWeight: "600",
             }}
           >
-            {priceChangePercentage.toFixed(2)}%
+            {priceChangePercentage?.toFixed(2)}%
           </Text>
         </View>
       </View>
+
       <View style={styles.quantityContainer}>
         <Text style={styles.title}>
           ${(quantityBought * currentPrice).toFixed(2)}
@@ -68,7 +72,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
-    alignSelf: "flex-end",
+    // alignSelf: "flex-end",
   },
   ticker: {
     color: "gray",
@@ -77,5 +81,6 @@ const styles = StyleSheet.create({
   quantityContainer: {
     marginLeft: "auto",
     alignItems: "flex-end",
+    flex: 0.8,
   },
 });
